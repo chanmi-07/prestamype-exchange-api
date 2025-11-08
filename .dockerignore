@@ -1,0 +1,15 @@
+
+node_modules
+**/node_modules
+.pnpm-store
+.pnpm
+dist
+.git
+.gitignore
+.vscode
+Dockerfile
+docker-compose.yaml
+.env
+.DS_Store
+npm-debug.log
+pnpm-debug.log
