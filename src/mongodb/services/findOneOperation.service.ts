@@ -11,7 +11,8 @@ export class FindOneOperation<T> extends MongoOperation<T> {
 
     async execute(query: object, options?: object): Promise<T | null> {
         try {
-            return await this.db.collection(this.collection).findOne<T>(query ?? {}, options);
+            const db = await this.getDb();
+            return await db.collection(this.collection).findOne<T>(query ?? {}, options);
         } catch (error) {
             console.error(error);
             return null;

@@ -14,11 +14,19 @@ export class FindAllOperation<T> extends MongoOperation<T[]> {
 
     async execute(query?: object, options?: object): Promise<T[]> {
         try {
-                // defining the collection and the cursor
-            let collection = this.db.collection<T[]>(this.collection);
+            const db = await this.getDb();
+            // defining the collection and the cursor
+            let collection = db.collection<T[]>(this.collection);
             let cursor = collection.find(query as unknown as Filter<T[]> ?? {}, options ?? {});
 
             let data: Array<T> = [];
+
+            // if there are documents, iterate through them and add them to the array
+            if ((await collection.countDocuments()) > 0) {
+                for await (const document of cursor) {
+                    data.push(new Object(document) as T);
+                }
+            }
 
             return data;
         } catch (error) {

@@ -10,7 +10,8 @@ export class FindOneAndUpdateOperation<T> extends MongoOperation<T | null> {
     }
     async execute(query: object, update: object, options?: object): Promise<T | null> {
         try {
-            let updatedDocument = await this.db.collection(this.collection).findOneAndUpdate(
+            const db = await this.getDb();
+            let updatedDocument = await db.collection(this.collection).findOneAndUpdate(
                 query,
                 update,
                 {
