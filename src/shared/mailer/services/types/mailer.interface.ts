@@ -4,8 +4,6 @@
  */
 export interface MailerInterface {
     email: string;
-    subject: string;
-    body: string;
 }
 
 export interface WelcomeMailerInterface extends MailerInterface {

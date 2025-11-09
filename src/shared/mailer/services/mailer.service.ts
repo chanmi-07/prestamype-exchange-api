@@ -10,25 +10,45 @@ import * as nodemailer from 'nodemailer';
 
 export abstract class MailerService implements Mailer {
     protected email: string;
-    protected subject: string;
-    protected body: string;
+    protected subject: string | undefined;
+    protected body: string | undefined;
 
     constructor(mailerData: MailerInterface) {
         Object.assign(this, mailerData);
     }
+
+    // Setters
+    setSubject(subject: string): void {
+        this.subject = subject;
+    }
+
+    setBody(body: string): void {
+        this.body = body;
+    }
     
+    /**
+     * Send Mail
+     */
     async sendMail(): Promise<void> {
-        const transporter = nodemailer.createTransport({
-            host: Environment.get(ENVIRONMENT.MAILER_HOST),
-            port: Number(Environment.get(ENVIRONMENT.MAILER_PORT)),
-            auth: {
-                user: Environment.get(ENVIRONMENT.MAILER_USER),
-                pass: Environment.get(ENVIRONMENT.MAILER_PASS),
-            },
-        });
+        const host = Environment.get(ENVIRONMENT.MAILER_HOST);
+        const port = Number(Environment.get(ENVIRONMENT.MAILER_PORT));
+        const user = process.env[ENVIRONMENT.MAILER_USER] ?? '';
+        const pass = process.env[ENVIRONMENT.MAILER_PASS] ?? '';
+
+        const transporterOptions: any = {
+            host,
+            port,
+            secure: true,
+        };
+
+        if (user && pass) {
+            transporterOptions.auth = { user, pass };
+        }
+
+        const transporter = nodemailer.createTransport(transporterOptions);
 
         await transporter.sendMail({
-            from: Environment.get(ENVIRONMENT.MAILER_USER),
+            from: user || undefined,
             to: this.email,
             subject: this.subject,
             text: this.body,

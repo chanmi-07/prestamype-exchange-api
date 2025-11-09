@@ -11,10 +11,10 @@ import { SUBJECT } from "./enums/subject.enum";
 export class WelcomeMailerService extends MailerService {
     private firstName: string;
     private readonly template = TEMPLATE.WELCOME;
+    private readonly templateService = TemplateService.getInstance();
 
     constructor(
         mailerData: WelcomeMailerInterface,
-        private readonly templateService: TemplateService
     ) {
         super(mailerData);
         this.firstName = mailerData.firstName;
@@ -24,9 +24,9 @@ export class WelcomeMailerService extends MailerService {
         const variables = {
             firstName: this.firstName,
         };
-        
-        this.body = await this.templateService.render(this.template, variables);
-        this.subject = SUBJECT.WELCOME;
+
+        this.setBody(await this.templateService.render(this.template, variables));
+        this.setSubject(SUBJECT.WELCOME);
 
         await this.sendMail();
     }
