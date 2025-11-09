@@ -1,9 +1,13 @@
+/**
+ * User Module
+ */
 import { Module } from '@nestjs/common';
 import { UserController } from './user.controller';
 import { UserMongoRepository } from './userMongo.repository';
 import { UserCreate } from '@/user/application/userCreate';
 import { UserRepository } from '@/user/domain/user.repository';
 import { UserGetAll } from '@/user/application/userGetAll';
+import { UserFindByEMail } from '@/user/application/userFindByEMail';
 
 @Module({
   controllers: [UserController],
@@ -21,7 +25,12 @@ import { UserGetAll } from '@/user/application/userGetAll';
       useFactory: (repo: UserRepository) => new UserGetAll(repo),
       inject: ['UserRepository'],
     },
+    {
+      provide: UserFindByEMail,
+      useFactory: (repo: UserRepository) => new UserFindByEMail(repo),
+      inject: ['UserRepository'],
+    }
   ],
-  exports: [UserCreate, UserGetAll],
+  exports: [UserCreate, UserGetAll, UserFindByEMail, 'UserRepository'],
 })
 export class UserModule {}

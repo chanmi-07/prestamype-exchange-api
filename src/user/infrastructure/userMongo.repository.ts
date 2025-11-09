@@ -1,6 +1,7 @@
 import { COLLECTION } from "@/mongodb/enums/collection.enum";
 import { CreateOperation } from "@/mongodb/services/createOperation.service";
 import { FindAllOperation } from "@/mongodb/services/findAllOperation.service";
+import { FindOneOperation } from "@/mongodb/services/findOneOperation.service";
 import { UserInterface } from "@/user/domain/types/user.interface";
 
 export class UserMongoRepository {
@@ -14,5 +15,10 @@ export class UserMongoRepository {
     async findAllUsers(): Promise<UserInterface[]> {
         const operation = new FindAllOperation<UserInterface>(this.collectionName);
         return operation.execute();
+    }
+
+    async findByEmail(email: string): Promise<UserInterface | null> {
+        const operation = new FindOneOperation<UserInterface>(this.collectionName);
+        return await operation.execute({ email });
     }
 }

@@ -40,5 +40,6 @@ COPY --from=builder /usr/src/app/dist ./dist
 # Expose the application port (if applicable)
 EXPOSE 3000
 
-# Start the application
-CMD ["node", "dist/main.js"]
+# Start the compiled application (production)
+# Use the built JS in `dist` instead of the `nest` CLI which is a devDependency
+CMD ["node", "dist/main"]
