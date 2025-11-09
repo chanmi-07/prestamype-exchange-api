@@ -1,9 +1,12 @@
+/**
+ * FindOneOperation class to perform a findOne operation on a MongoDB collection.
+ */
 import { MongoOperation } from "@/mongodb/services/mongodbOperation.service";
-import { MongoClient } from "mongodb";
+import { COLLECTION } from "@/mongodb/enums/collection.enum";
 
 export class FindOneOperation<T> extends MongoOperation<T> {
-    constructor(collection: string, client: MongoClient) {
-        super(collection, client);
+    constructor(collection: COLLECTION) {
+        super(collection);
     }
 
     async execute(query: object, options?: object): Promise<T | null> {
