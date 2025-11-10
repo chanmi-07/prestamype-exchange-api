@@ -12,11 +12,6 @@ export class UserMongoRepository {
         return await operation.execute(userData);
     }
 
-    async findAllUsers(): Promise<UserInterface[]> {
-        const operation = new FindAllOperation<UserInterface>(this.collectionName);
-        return operation.execute();
-    }
-
     async findByEmail(email: string): Promise<UserInterface | null> {
         const operation = new FindOneOperation<UserInterface>(this.collectionName);
         return await operation.execute({ email });

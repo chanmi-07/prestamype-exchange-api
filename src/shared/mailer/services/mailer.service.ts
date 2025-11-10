@@ -32,13 +32,13 @@ export abstract class MailerService implements Mailer {
     async sendMail(): Promise<void> {
         const host = Environment.get(ENVIRONMENT.MAILER_HOST);
         const port = Number(Environment.get(ENVIRONMENT.MAILER_PORT));
-        const user = process.env[ENVIRONMENT.MAILER_USER] ?? '';
-        const pass = process.env[ENVIRONMENT.MAILER_PASS] ?? '';
+        const user = Environment.get(ENVIRONMENT.MAILER_USER) ?? '';
+        const pass = Environment.get(ENVIRONMENT.MAILER_PASS) ?? '';
 
         const transporterOptions: any = {
             host,
             port,
-            secure: true,
+            // secure: true,
         };
 
         if (user && pass) {
