@@ -4,9 +4,9 @@
  */
 import { WelcomeMailerInterface } from "@/shared/mailer/services/types/mailer.interface";
 import { MailerService } from "@/shared/mailer/services/mailer.service";
-import { TEMPLATE } from "./enums/template.enum";
+import { TEMPLATE } from "@/shared/mailer/services/enums/template.enum";
 import { TemplateService } from "@/shared/mailer/services/template.service";
-import { SUBJECT } from "./enums/subject.enum";
+import { SUBJECT } from "@/shared/mailer/services/enums/subject.enum";
 
 export class WelcomeMailerService extends MailerService {
     private firstName: string;
