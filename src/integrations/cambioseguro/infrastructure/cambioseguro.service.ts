@@ -5,9 +5,10 @@ import { HTTP_HEADER } from '@/integrations/global/enums/http.enum';
 import { ENVIRONMENT } from '@/shared/config/enums/environment.enum';
 import axios, { AxiosInstance } from 'axios';
 import { CAMBIO_SEGURO_ENDPOINT } from '@/integrations/cambioseguro/domain/enums/endpoint';
+import { Environment } from '@/shared/config/classes/environment';
 
 export class CambioSeguroService {
-    private readonly baseUrl = ENVIRONMENT.CAMBIO_SEGURO_API_URL;
+    private readonly baseUrl = Environment.get(ENVIRONMENT.CAMBIO_SEGURO_API_URL);
     private readonly client: AxiosInstance;
 
     constructor() {

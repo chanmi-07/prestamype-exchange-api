@@ -12,7 +12,7 @@ export class GetRatesAdapter {
         this.cambioSeguroService = new CambioSeguroService();
     }
 
-    async getRates(): Promise<RatesInterface> {
+    async execute(): Promise<RatesInterface> {
         return await this.cambioSeguroService.getRequest<RatesInterface>(CAMBIO_SEGURO_ENDPOINT.RATES);
     }
 }
