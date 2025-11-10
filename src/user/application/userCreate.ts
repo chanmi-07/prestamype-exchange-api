@@ -6,11 +6,17 @@ import { UserInterface } from "@/user/domain/types/user.interface";
 import { WelcomeMailerService } from "@/shared/mailer/services/welcomeMailer.service";
 import { User } from "@/user/domain/user.entity";
 import { BcryptHasherService } from "@/shared/security/services/bcryptHasher.service";
+import { CreateUserDto } from "@/user/application/dto/createUser.dto";
 
 export class UserCreate {
     constructor(private userRepository: UserRepository) {}
 
-    async execute(userData: UserInterface): Promise<UserInterface> {
+    async execute(userData: CreateUserDto): Promise<UserInterface> {
+        const existing = await this.userRepository.findByEmail(userData.email);
+        if (existing) {
+        throw new Error('Email is already registered');
+        }
+
         const bcryptHasherService = new BcryptHasherService();
         const hashedPassword = await bcryptHasherService.hashPassword(userData.password)
         userData.password = hashedPassword;

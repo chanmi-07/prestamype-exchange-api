@@ -1,6 +1,7 @@
 import { Controller, Post, Body, HttpCode, HttpStatus, Get } from '@nestjs/common';
 import { UserCreate } from '@/user/application/userCreate';
 import type { UserInterface } from '@/user/domain/types/user.interface';
+import { CreateUserDto } from '../application/dto/createUser.dto';
 
 @Controller('users')
 export class UserController {
@@ -9,7 +10,7 @@ export class UserController {
 ) {}
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async create(@Body() payload: UserInterface): Promise<UserInterface> {
+  async create(@Body() payload: CreateUserDto): Promise<UserInterface> {
     return await this.userCreate.execute(payload);
   }
 }
