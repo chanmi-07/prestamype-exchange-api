@@ -6,6 +6,7 @@ import { GetUser } from '@/auth/decorators/get-user.decorator';
 import { ExchangeGetAllPaginated } from "@/exchange/application/exchangeGetAllPaginated";
 import { ExchangeFindById } from "@/exchange/application/exchangeFindById";
 import { ExchangeDelete } from "@/exchange/application/exchangeDelete";
+import { ExchangeCreateDto } from "@/exchange/application/dto/exchangeCreate.dto";
 
 @Controller('exchange')
 export class ExchangeController {
@@ -32,7 +33,7 @@ export class ExchangeController {
     @Post()
     @HttpCode(HttpStatus.CREATED)
     async create(
-        @Body() exchangeData: ExchangeCreateInterface,
+        @Body() exchangeData: ExchangeCreateDto,
         @GetUser() user: any,
     ): Promise<ExchangeInterface> {
         const { userId } = user ?? {};

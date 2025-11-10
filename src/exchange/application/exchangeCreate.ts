@@ -8,6 +8,7 @@ import { ExchangeCreateInterface, ExchangeInterface } from "@/exchange/domain/ty
 import { GetRatesAdapter } from "@/integrations/cambioseguro/infrastructure/getRates.adapter";
 import { ExchangeCalculatorFactory } from "@/exchange/domain/factories/exchangeCalculator.factory";
 import { ObjectId } from "mongodb";
+import { ExchangeCreateDto } from "@/exchange/application/dto/exchangeCreate.dto";
 
 export class ExchangeCreate {
     constructor(
@@ -15,7 +16,7 @@ export class ExchangeCreate {
         private readonly getRatesAdapter: GetRatesAdapter,
     ) {}
 
-    async execute(data: ExchangeCreateInterface, userId: ObjectId): Promise<ExchangeInterface> {
+    async execute(data: ExchangeCreateDto, userId: ObjectId): Promise<ExchangeInterface> {
         const ratesResponse = await this.getRatesAdapter.execute();
 
         const exchangeRates = {
