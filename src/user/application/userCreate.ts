@@ -14,7 +14,7 @@ export class UserCreate {
     async execute(userData: CreateUserDto): Promise<UserInterface> {
         const existing = await this.userRepository.findByEmail(userData.email);
         if (existing) {
-        throw new Error('Email is already registered');
+            throw new Error('Email is already registered');
         }
 
         const bcryptHasherService = new BcryptHasherService();

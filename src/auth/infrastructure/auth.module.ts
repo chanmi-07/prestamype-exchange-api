@@ -39,8 +39,4 @@ import { UserRepository } from "@/user/domain/user.repository";
     ],
     exports: ['JwtServicePort'],
 })
-export class AuthModule {
-    constructor() {
-    console.log('✅ AuthModule initialized');
-  }
-}
+export class AuthModule {}
