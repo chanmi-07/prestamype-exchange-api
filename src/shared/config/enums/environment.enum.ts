@@ -1,0 +1,13 @@
+/**
+ * Environment variable keys enumeration
+ */
+export enum ENVIRONMENT {
+    JWT_SECRET = 'JWT_SECRET',
+    MONGO_URI = 'MONGO_URI',
+    MONGO_DB = 'MONGO_DB',
+    MAILER_HOST = 'MAILER_HOST',
+    MAILER_PORT = 'MAILER_PORT',
+    MAILER_USER = 'MAILER_USER',
+    MAILER_PASS = 'MAILER_PASS',
+    CAMBIO_SEGURO_API_URL = 'CAMBIO_SEGURO_API_URL',
+}
