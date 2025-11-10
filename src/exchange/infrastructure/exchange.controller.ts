@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards, DefaultValuePipe, ParseIntPipe } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Query, UseGuards, DefaultValuePipe, ParseIntPipe, HttpCode, HttpStatus } from "@nestjs/common";
 import { ExchangeCreate } from "../application/exchangeCreate";
 import type { ExchangeCreateInterface, ExchangeInterface } from "@/exchange/domain/types/exchange.interface";
 import { AuthGuard } from "@nestjs/passport";
@@ -18,6 +18,7 @@ export class ExchangeController {
 
     @UseGuards(AuthGuard('jwt'))
     @Get()
+    @HttpCode(HttpStatus.OK)
     async getAllPaginated(
         @GetUser() user: any,
         @Query('page', new DefaultValuePipe(1), new ParseIntPipe()) page: number,
@@ -29,6 +30,7 @@ export class ExchangeController {
 
     @UseGuards(AuthGuard('jwt'))
     @Post()
+    @HttpCode(HttpStatus.CREATED)
     async create(
         @Body() exchangeData: ExchangeCreateInterface,
         @GetUser() user: any,
@@ -40,6 +42,7 @@ export class ExchangeController {
 
     @UseGuards(AuthGuard('jwt'))
     @Get(':id')
+    @HttpCode(HttpStatus.OK)
     async findById(
         @Param('id') id: string,
         @GetUser() user: any,
@@ -50,6 +53,7 @@ export class ExchangeController {
 
     @UseGuards(AuthGuard('jwt'))
     @Delete(':id')
+    @HttpCode(HttpStatus.OK)
     async delete(
         @Param('id') id: string,
         @GetUser() user: any,
