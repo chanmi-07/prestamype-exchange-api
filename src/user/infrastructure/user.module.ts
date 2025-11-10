@@ -6,7 +6,6 @@ import { UserController } from './user.controller';
 import { UserMongoRepository } from './userMongo.repository';
 import { UserCreate } from '@/user/application/userCreate';
 import { UserRepository } from '@/user/domain/user.repository';
-import { UserGetAll } from '@/user/application/userGetAll';
 import { UserFindByEMail } from '@/user/application/userFindByEMail';
 
 @Module({
@@ -21,16 +20,11 @@ import { UserFindByEMail } from '@/user/application/userFindByEMail';
       inject: ['UserRepository'],
     },
     {
-      provide: UserGetAll,
-      useFactory: (repo: UserRepository) => new UserGetAll(repo),
-      inject: ['UserRepository'],
-    },
-    {
       provide: UserFindByEMail,
       useFactory: (repo: UserRepository) => new UserFindByEMail(repo),
       inject: ['UserRepository'],
     }
   ],
-  exports: [UserCreate, UserGetAll, UserFindByEMail, 'UserRepository'],
+  exports: [UserCreate, UserFindByEMail, 'UserRepository'],
 })
 export class UserModule {}

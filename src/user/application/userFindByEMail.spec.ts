@@ -1,4 +1,4 @@
-import { UserFindByEMail } from './userFindByEMail';
+import { UserFindByEMail } from '@/user/application/userFindByEMail';
 
 describe('UserFindByEMail use-case', () => {
 	const mockEmail = 'alice@example.com';

@@ -1,4 +1,4 @@
-import { UserCreate } from './userCreate';
+import { UserCreate } from '@/user/application/userCreate';
 import { BcryptHasherService } from '@/shared/security/services/bcryptHasher.service';
 import { WelcomeMailerService } from '@/shared/mailer/services/welcomeMailer.service';
 
