@@ -4,7 +4,7 @@
  * and stores the exchange details in the repository.
  */
 import { ExchangeRepository } from "@/exchange/domain/exchange.repository";
-import { ExchangeInterface } from "@/exchange/domain/types/exchange.interface";
+import { ExchangeCreateInterface, ExchangeInterface } from "@/exchange/domain/types/exchange.interface";
 import { GetRatesAdapter } from "@/integrations/cambioseguro/infrastructure/getRates.adapter";
 import { ExchangeCalculatorFactory } from "@/exchange/domain/factories/exchangeCalculator.factory";
 import { ObjectId } from "mongodb";
@@ -15,7 +15,7 @@ export class ExchangeCreate {
         private readonly getRatesAdapter: GetRatesAdapter,
     ) {}
 
-    async execute(data: ExchangeInterface, userId: ObjectId): Promise<ExchangeInterface> {
+    async execute(data: ExchangeCreateInterface, userId: ObjectId): Promise<ExchangeInterface> {
         const ratesResponse = await this.getRatesAdapter.execute();
 
         const exchangeRates = {

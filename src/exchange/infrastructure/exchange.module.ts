@@ -4,6 +4,9 @@ import { ExchangeMongoRepository } from "@/exchange/infrastructure/exchangeMongo
 import { ExchangeCreate } from "@/exchange/application/exchangeCreate";
 import { ExchangeRepository } from "@/exchange/domain/exchange.repository";
 import { GetRatesAdapter } from "@/integrations/cambioseguro/infrastructure/getRates.adapter";
+import { ExchangeGetAllPaginated } from "@/exchange/application/exchangeGetAllPaginated";
+import { ExchangeFindById } from "@/exchange/application/exchangeFindById";
+import { ExchangeDelete } from "@/exchange/application/exchangeDelete";
 
 @Module({
     controllers: [ExchangeController],
@@ -14,6 +17,21 @@ import { GetRatesAdapter } from "@/integrations/cambioseguro/infrastructure/getR
             provide: ExchangeCreate,
             useFactory: (repo: ExchangeRepository, getRatesAdapter: GetRatesAdapter) => new ExchangeCreate(repo, getRatesAdapter),
             inject: ['ExchangeRepository', 'GetRatesAdapter'],
+        },
+        {
+            provide: ExchangeGetAllPaginated,
+            useFactory: (repo: ExchangeRepository) => new ExchangeGetAllPaginated(repo),
+            inject: ['ExchangeRepository'],
+        },
+        {
+            provide: ExchangeFindById,
+            useFactory: (repo: ExchangeRepository) => new ExchangeFindById(repo),
+            inject: ['ExchangeRepository'],
+        },
+        {
+            provide: ExchangeDelete,
+            useFactory: (repo: ExchangeRepository) => new ExchangeDelete(repo),
+            inject: ['ExchangeRepository'],
         }
     ],
 })
